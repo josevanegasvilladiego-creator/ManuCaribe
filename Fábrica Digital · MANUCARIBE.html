@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fábrica Digital · MANUCARIBE</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#eceff1;--surf:#fff;--ink:#14263a;--mut:#5b6b7a;--line:#d3d9de;--amber:#f2a900;--teal:#0f7b8a;--ok:#2e7d4f;--bad:#c0392b;--soft:#f6f8f9;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a26;--surf:#172635;--ink:#e8edf1;--mut:#9aabba;--line:#2a3d4f;--soft:#1d2f40;--teal:#3fb4c4;--ok:#5cbf86;--bad:#ef7a6c}}
+:root[data-theme="dark"]{--bg:#0f1a26;--surf:#172635;--ink:#e8edf1;--mut:#9aabba;--line:#2a3d4f;--soft:#1d2f40;--teal:#3fb4c4;--ok:#5cbf86;--bad:#ef7a6c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",sans-serif;margin:0;letter-spacing:.2px}
+button,select,input{font:inherit;color:inherit}
+.top{background:#14263a;color:#fff;border-bottom:4px solid var(--amber);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{font:700 20px "Barlow Condensed","Arial Narrow",sans-serif}
+.brand small{display:block;font:400 12px "IBM Plex Sans",sans-serif;color:#b9c6d2}
+.top button{background:none;border:1px solid #5d7389;color:#fff;border-radius:4px;padding:6px 10px;cursor:pointer}
+nav{display:flex;overflow-x:auto;background:var(--surf);border-bottom:1px solid var(--line)}
+nav button{flex:0 0 auto;background:none;border:0;border-bottom:3px solid transparent;padding:12px 16px;cursor:pointer;color:var(--mut);font-weight:500}
+nav button.on{color:var(--ink);border-bottom-color:var(--teal)}
+main{max-width:920px;margin:0 auto;padding:16px}
+.login{max-width:380px;margin:8vh auto;padding:0 16px}
+.login .box{background:var(--surf);border:1px solid var(--line);border-top:4px solid var(--amber);padding:22px}
+.login h1{font-size:30px;margin-bottom:4px}
+label{display:block;font-size:13px;color:var(--mut);margin:12px 0 4px}
+input,select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:4px;background:var(--soft)}
+.btn{background:var(--teal);color:#fff;border:0;border-radius:4px;padding:9px 14px;cursor:pointer;font-weight:600}
+.btn.alt{background:none;color:var(--ink);border:1px solid var(--line)}
+.btn.full{width:100%;margin-top:18px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0 18px}
+.kpi{background:var(--surf);border:1px solid var(--line);padding:12px}
+.kpi b{display:block;font:700 30px "Barlow Condensed",sans-serif}
+.kpi span{font-size:13px;color:var(--mut)}
+.kpi.hot{border-left:4px solid var(--bad)}
+h2{font-size:24px;margin:20px 0 8px}
+.card{background:var(--surf);border:1px solid var(--line);padding:14px;margin-bottom:10px}
+.row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.bar{height:8px;background:var(--line);margin-top:8px;position:relative}
+.bar i{display:block;height:100%;background:var(--teal)}
+.bar i.low{background:var(--bad)}
+.bar u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+.tag{font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--soft);border:1px solid var(--line)}
+.tag.Pendiente{border-color:var(--amber)}.tag.Confirmada,.tag.Despachada{color:var(--ok);border-color:var(--ok)}.tag.Contrapropuesta{color:var(--teal);border-color:var(--teal)}
+.mut{color:var(--mut);font-size:13px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.acts input{width:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.chart{display:flex;align-items:flex-end;gap:8px;height:180px;padding-top:10px;border-bottom:2px solid var(--ink)}
+.chart div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:12px}
+.chart i{display:block;width:100%;background:var(--teal)}
+.chart .est i{background:none;border:2px dashed var(--teal)}
+.labels{display:flex;gap:8px;font-size:12px;color:var(--mut)}.labels span{flex:1;text-align:center}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:#14263a;color:#fff;padding:10px 16px;border-left:4px solid var(--amber);max-width:90%}
+.note{text-align:center;color:var(--mut);font-size:12px;padding:20px 16px}
+.btn.big{padding:16px;font-size:17px;flex:1;min-width:120px}.tag.st-run{color:var(--ok);border-color:var(--ok)}.tag.st-stop{color:var(--bad);border-color:var(--bad)}nav.mods{background:#0e1c2b;border-bottom:0}nav.mods button{color:#b9c6d2}nav.mods button.on{color:#fff;border-bottom-color:var(--amber)}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var base=new Date(2026,9,4);
+function dt(n){var x=new Date(base);x.setDate(x.getDate()+n);return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")}
+function fd(s){return new Date(s+"T12:00").toLocaleDateString("es-CO",{day:"numeric",month:"short"})}
+var DATA={
+alu:{name:"AluCaribe Industrial S.A.S.",mats:[["Lingote aluminio 6061",18400,15000,1150,"kg"],["Perfil extruido 40x40",3200,4000,260,"kg"]],
+orders:[["OC-4501","Lingote aluminio 6061",12000,6,"Pendiente"],["OC-4502","Perfil extruido 40x40",5000,3,"Pendiente"],["OC-4488","Lingote aluminio 6061",10000,-2,"Confirmada"],["OC-4479","Perfil extruido 40x40",4000,9,"Confirmada"]],
+fc:[11000,11500,12000,10500,13000,13500,12500,12000],sc:[94,97,91]},
+res:{name:"Polímeros del Norte Ltda.",mats:[["Resina ABS",9200,8000,420,"kg"],["Resina PP copolímero",2100,3500,300,"kg"]],
+orders:[["OC-4510","Resina PP copolímero",6000,4,"Pendiente"],["OC-4507","Resina ABS",5000,8,"Pendiente"],["OC-4495","Resina PP copolímero",4000,-1,"Confirmada"]],
+fc:[4800,5000,5200,5600,5400,6000,5800,5500],sc:[88,95,86]},
+her:{name:"Corte Preciso S.A.",mats:[["Insertos CNMG 120408",640,500,22,"u"],["Fresas carburo Ø10",85,120,6,"u"]],
+orders:[["OC-4520","Fresas carburo Ø10",150,5,"Pendiente"],["OC-4516","Insertos CNMG 120408",400,10,"Pendiente"],["OC-4500","Fresas carburo Ø10",100,1,"Confirmada"]],
+fc:[210,220,200,240,230,250,260,240],sc:[96,99,93]}
+};
+DATA.alu.cat="Aluminio";DATA.res.cat="Resinas";DATA.her.cat="Herramientas de corte";
+var CAT={alu:{n:"Aluminio",f:11000,m:[["Lingote aluminio 6063","kg",16000,1100],["Lámina aluminio 3 mm","kg",5200,380],["Barra redonda aluminio Ø50","kg",3800,300],["Perfil angular 30x30","kg",2900,240]]},
+res:{n:"Resinas",f:5000,m:[["Resina PA6","kg",7600,400],["Resina policarbonato","kg",3100,210],["Resina PE alta densidad","kg",8800,520],["Resina POM","kg",2400,160]]},
+her:{n:"Herramientas de corte",f:220,m:[["Brocas HSS Ø8","u",420,18],["Machuelos M6","u",260,9],["Insertos de torneado","u",700,26],["Fresas frontales Ø16","u",95,5]]}};
+[["alu","Metales del Atlántico S.A.S."],["alu","Fundiciones Barranquilla Ltda."],["alu","Extrusiones Costa S.A."],["alu","Aluminios del Magdalena S.A.S."],["alu","Laminados Caribe Ltda."],
+["res","PlastiQuímica del Caribe S.A."],["res","Resinas Andinas Ltda."],["res","TermoPlast Colombia S.A.S."],["res","Polímeros Técnicos del Sur S.A."],["res","Compuestos Plásticos Bolívar Ltda."],
+["her","Herramientas Industriales Cartagena"],["her","Carburos y Filos S.A.S."],["her","ToolTech Andina Ltda."],["her","Abrasivos y Corte Caribe S.A."],["her","Fresas y Mandrinos del Norte Ltda."]].forEach(function(x,i){
+var c=CAT[x[0]],a=c.m[i%4],b=c.m[(i+1)%4],low=i%3===0,r=function(k){return((i*7+k*13)%10)/10},n=4600+i*3;
+DATA["p"+i]={name:x[1],cat:c.n,
+mats:[[a[0],Math.round(a[2]*(0.9+r(1)*0.5)),Math.round(a[2]*0.75),a[3],a[1]],[b[0],Math.round(b[2]*(low?0.55:1.1+r(2)*0.3)),Math.round(b[2]*0.8),b[3],b[1]]],
+orders:[["OC-"+n,a[0],Math.round(a[2]*0.5/10)*10,3+i%6,"Pendiente"],["OC-"+(n+1),b[0],Math.round(b[2]*0.6/10)*10,2+i%5,low?"Pendiente":"Confirmada"],["OC-"+(n+2),a[0],Math.round(a[2]*0.4/10)*10,8+i%4,"Confirmada"]],
+fc:[0,1,2,3,4,5,6,7].map(function(k){return Math.round(c.f*(0.8+((i+k*3)%7)/20))}),
+sc:[86+(i*3)%13,90+(i*5)%10,84+(i*7)%15]}});
+function supOpts(){var g={};Object.keys(DATA).forEach(function(k){var c=DATA[k].cat;(g[c]=g[c]||[]).push('<option value="'+k+'">'+DATA[k].name+"</option>")});return Object.keys(g).map(function(c){return'<optgroup label="'+c+" ("+g[c].length+')">'+g[c].join("")+"</optgroup>"}).join("")}
+var S={sup:null,tab:"panel",orders:[],asn:[],ack:false,toast:""};
+var $=function(h){document.getElementById("root").innerHTML=h};
+function say(m){S.toast=m;render();setTimeout(function(){S.toast="";render()},2500)}
+function login(){S.sup=document.getElementById("su").value;var d=DATA[S.sup];
+S.orders=d.orders.map(function(o){return{id:o[0],item:o[1],qty:o[2],req:dt(o[3]),status:o[4],date:dt(o[3])}});S.asn=[];S.ack=false;S.tab="panel";render()}
+function out(){S.sup=null;render()}
+function tab(t){S.tab=t;render()}
+function conf(i){S.orders[i].status="Confirmada";say("Orden "+S.orders[i].id+" confirmada para el "+fd(S.orders[i].date))}
+function prop(i){var v=document.getElementById("d"+i).value;if(!v)return;S.orders[i].date=v;S.orders[i].status="Contrapropuesta";say("Nueva fecha enviada: "+fd(v))}
+function ship(){var i=document.getElementById("so").value,q=+document.getElementById("sq").value,g=document.getElementById("sg").value.trim(),f=document.getElementById("sf").value;
+if(i===""||!q||!g||!f){say("Completa orden, cantidad, guía y fecha de llegada");return}
+var o=S.orders[i];o.status="Despachada";S.asn.unshift({code:"ASN-"+(7000+S.asn.length+1),oc:o.id,item:o.item,qty:q,guia:g,eta:f});say("Aviso de despacho creado para "+o.id)}
+function ackf(){S.ack=true;say("Pronóstico reconocido")}
+function nav(){var t=[["panel","Panel"],["ordenes","Órdenes de compra"],["despachos","Despachos"],["pronostico","Pronóstico"]];
+return "<nav>"+t.map(function(x){return '<button class="'+(S.tab===x[0]?"on":"")+'" onclick="tab(\''+x[0]+'\')">'+x[1]+"</button>"}).join("")+"</nav>"}
+function panel(d){var pend=S.orders.filter(function(o){return o.status==="Pendiente"}).length,way=S.asn.length+S.orders.filter(function(o){return o.status==="Confirmada"}).length;
+var low=d.mats.filter(function(m){return m[1]<m[2]});
+var cov=Math.min.apply(null,d.mats.map(function(m){return m[1]/m[3]})).toFixed(0);
+var h='<div class="kpis"><div class="kpi'+(pend?" hot":"")+'"><b>'+pend+'</b><span>Órdenes por confirmar</span></div><div class="kpi"><b>'+way+'</b><span>Entregas programadas</span></div><div class="kpi'+(low.length?" hot":"")+'"><b>'+cov+' días</b><span>Cobertura mínima en planta</span></div><div class="kpi"><b>'+d.sc[0]+'%</b><span>Entregas a tiempo</span></div></div>';
+if(low.length)h+='<div class="card" style="border-left:4px solid var(--bad)"><b>Reposición urgente:</b> '+low.map(function(m){return m[0]}).join(", ")+' está por debajo del mínimo. <div class="acts"><button class="btn" onclick="tab(\'ordenes\')">Revisar órdenes</button></div></div>';
+h+="<h2>Inventario de tus materiales en MANUCARIBE</h2>";
+d.mats.forEach(function(m){var mx=Math.max(m[1],m[2])*1.25,p=m[1]/mx*100,mk=m[2]/mx*100,lo=m[1]<m[2];
+h+='<div class="card"><div class="row"><b>'+m[0]+'</b><span class="'+(lo?"":"mut")+'" style="'+(lo?"color:var(--bad);font-weight:600":"")+'">'+m[1].toLocaleString("es-CO")+" "+m[4]+" · alcanza para "+(m[1]/m[3]).toFixed(0)+' días</span></div><div class="bar"><i class="'+(lo?"low":"")+'" style="width:'+p+'%"></i><u style="left:'+mk+'%"></u></div><div class="mut" style="margin-top:6px">La marca vertical es el mínimo: '+m[2].toLocaleString("es-CO")+" "+m[4]+"</div></div>"});
+h+="<h2>Tu desempeño como proveedor</h2><div class='grid2'>";
+[["Puntualidad",d.sc[0]],["Calidad aceptada",d.sc[1]],["Cumplimiento de cantidad",d.sc[2]]].forEach(function(s){h+='<div class="card"><div class="row"><span>'+s[0]+"</span><b>"+s[1]+'%</b></div><div class="bar"><i style="width:'+s[1]+'%"></i></div></div>'});
+return h+"</div>"}
+function ordenes(d){var h="<h2>Órdenes de compra</h2>";
+S.orders.forEach(function(o,i){h+='<div class="card"><div class="row"><b>'+o.id+" · "+o.item+'</b><span class="tag '+o.status+'">'+o.status+'</span></div><div class="mut">'+o.qty.toLocaleString("es-CO")+" "+(d.mats[0][4])+" · entrega solicitada: "+fd(o.req)+(o.date!==o.req?" · tu fecha: "+fd(o.date):"")+"</div>";
+if(o.status==="Pendiente"||o.status==="Contrapropuesta")h+='<div class="acts"><button class="btn" onclick="conf('+i+')">Confirmar fecha solicitada</button><input type="date" id="d'+i+'" value="'+o.date+'" min="'+dt(0)+'"><button class="btn alt" onclick="prop('+i+')">Proponer otra fecha</button></div>';
+h+="</div>"});return h}
+function despachos(){var ok=S.orders.map(function(o,i){return[o,i]}).filter(function(x){return x[0].status==="Confirmada"});
+var h="<h2>Crear aviso de despacho</h2>";
+if(!ok.length)h+='<div class="card mut">No tienes órdenes confirmadas. Confirma una orden para avisar su despacho.</div>';
+else h+='<div class="card"><label>Orden confirmada</label><select id="so">'+ok.map(function(x){return'<option value="'+x[1]+'">'+x[0].id+" · "+x[0].item+"</option>"}).join("")+'</select><div class="grid2"><div><label>Cantidad despachada</label><input id="sq" type="number" min="1"></div><div><label>Fecha de llegada a planta</label><input id="sf" type="date" min="'+dt(0)+'"></div></div><label>Transportador y guía</label><input id="sg" placeholder="Ej.: TransCaribe 88-2045"><button class="btn full" onclick="ship()">Enviar aviso de despacho</button></div>';
+h+="<h2>Avisos enviados</h2>";
+if(!S.asn.length)h+='<div class="card mut">Aún no has enviado avisos. Los que crees aparecerán aquí y en el sistema de recepción de MANUCARIBE.</div>';
+S.asn.forEach(function(a){h+='<div class="card"><div class="row"><b>'+a.code+" · "+a.oc+'</b><span class="tag Despachada">En tránsito</span></div><div class="mut">'+a.item+" · "+a.qty.toLocaleString("es-CO")+" · guía "+a.guia+" · llega el "+fd(a.eta)+"</div></div>"});return h}
+function pronostico(d){var mx=Math.max.apply(null,d.fc);
+var h='<h2>Pronóstico de demanda · próximas 8 semanas</h2><div class="card"><div class="mut" style="margin-bottom:8px">'+d.mats[0][0]+" ("+d.mats[0][4]+'). Semanas 1-2 son firmes; las demás son estimadas.</div><div class="chart">';
+d.fc.forEach(function(v,i){h+='<div class="'+(i<2?"":"est")+'">'+v.toLocaleString("es-CO")+'<i style="height:'+(v/mx*80)+'%"></i></div>'});
+h+='</div><div class="labels">'+d.fc.map(function(v,i){return"<span>S"+(i+1)+"</span>"}).join("")+'</div><div class="acts">'+(S.ack?'<span class="tag Confirmada">Pronóstico reconocido</span>':'<button class="btn" onclick="ackf()">Reconocer pronóstico</button>')+"</div></div>";
+return h}
+function provV(){var h;
+if(!S.sup){h='<div class="login"><div class="box"><h1>Portal de Proveedores</h1><div class="mut">Manufacturas y Ensambles del Caribe S.A.</div><label>Empresa proveedora</label><select id="su">'+supOpts()+'</select><label>Usuario</label><input value="compras@proveedor.com"><label>Contraseña</label><input type="password" value="demo1234"><button class="btn full" onclick="login()">Ingresar</button></div></div><div class="note">Simulación académica con datos ficticios.</div>'}
+else{var d=DATA[S.sup];h='<div class="top"><div class="brand">MANUCARIBE<small>Portal de Proveedores · '+d.name+'</small></div><button onclick="out()">Salir</button></div>'+nav()+"<main>"+({panel:panel,ordenes:ordenes,despachos:despachos,pronostico:pronostico}[S.tab])(d)+'</main><div class="note">Simulación académica con datos ficticios · Acción 3 del Plan de Desarrollo Digital</div>'}
+return h}
+var MOD="mes",TM=0,VS=0,LOG=[],ERP={pt:0,mp:0};
+var MQ=[{m:"CNC-03",op:"OP-2301",pz:"Carcasa aluminio CA-120",plan:400,g:0,b:0,st:"Detenida",kg:0.8,ruta:"Corte → Mecanizado → Inspección"},{m:"INY-01",op:"OP-2302",pz:"Tapa ABS lavadora TL-45",plan:900,g:0,b:0,st:"Detenida",kg:0.3,ruta:"Inyección → Rebabado → Empaque"},{m:"ENS-02",op:"OP-2303",pz:"Soporte motor SM-77",plan:250,g:0,b:0,st:"Detenida",kg:1.1,ruta:"Ensamble → Prueba → Etiqueta QR"}];
+var ST=[["Programación",0.5,8,1],["Mecanizado e inyección",3,16,6],["Ensamble",2,12,4],["Calidad",1,6,2],["Despacho",0.5,4,1]];
+function stamp(){return new Date().toLocaleTimeString("es-CO",{hour12:false})}
+function ev(m,t){LOG.unshift({t:stamp(),m:m,x:t});LOG=LOG.slice(0,10)}
+function mod(x){MOD=x;render()}
+function tm(i){TM=i;render()}
+function vs(i){VS=i;render()}
+function go(i){var q=MQ[i];if(q.st==="Finalizada")return;q.st="En producción";ev(q.m,q.op+" en proceso: el MES avisa al ERP");render()}
+function reg(i,g,b){var q=MQ[i];if(q.st!=="En producción"){say("Inicia la orden o reanuda la máquina primero");return}
+var room=q.plan-q.g-q.b;g=Math.min(g,room);b=Math.min(b,room-g);if(g+b<=0)return;
+q.g+=g;q.b+=b;ERP.pt+=g;ERP.mp+=(g+b)*q.kg;
+ev(q.m,(g?"+"+g+" piezas buenas":"+"+b+" defecto")+" → MES → ERP actualizó inventario");render()}
+function stop(i){var q=MQ[i];if(q.st==="En producción"){q.st="Parada no programada";ev(q.m,"Parada registrada: alerta a Mantenimiento")}else if(q.st==="Parada no programada"){q.st="En producción";ev(q.m,"Máquina reanudada")}render()}
+function fin(i){var q=MQ[i];if(q.g+q.b===0)return;q.st="Finalizada";ev(q.m,q.op+" cerrada: ERP recibe producto terminado");render()}
+function stc(q){return q.st==="En producción"?"st-run":q.st==="Parada no programada"?"st-stop":""}
+function oee(q){return q.g+q.b?Math.round(0.92*0.9*q.g/(q.g+q.b)*100)+"%":"—"}
+function mods(){var t=[["mes","1 · MES–ERP"],["term","2 · Terminal de planta"],["prov","3 · Proveedores"],["vsm","4 · Cadena de valor"]];
+return '<div class="top"><div class="brand">MANUCARIBE · Fábrica digital<small>Simulación del Plan de Modernización e Industria 4.0</small></div></div><nav class="mods">'+t.map(function(x){return '<button class="'+(MOD===x[0]?"on":"")+'" onclick="mod(\''+x[0]+'\')">'+x[1]+"</button>"}).join("")+"</nav>"}
+function mesV(){var g=0,b=0,r=0;MQ.forEach(function(q){g+=q.g;b+=q.b;if(q.st==="En producción")r++});
+var h='<main><h2 style="margin-top:4px">Conexión MES ⇄ ERP en tiempo real</h2><div class="kpis"><div class="kpi"><b>'+r+' / 3</b><span>Máquinas en producción</span></div><div class="kpi"><b>'+g+'</b><span>Piezas buenas</span></div><div class="kpi'+(b?" hot":"")+'"><b>'+(g+b?(b/(g+b)*100).toFixed(1):"0.0")+'%</b><span>Defectos</span></div><div class="kpi"><b>&lt; 2 s</b><span>Demora MES → ERP</span></div></div>';
+h+='<div class="grid2"><div class="card"><b>Antes</b><div class="mut">ERP → Excel → impresión → tarjeta de ruta → registro a mano → reporte por turno.</div></div><div class="card" style="border-left:4px solid var(--teal)"><b>Ahora</b><div class="mut">ERP ⇄ MES ⇄ terminal de planta. Cada pieza queda registrada al instante.</div></div></div>';
+h+='<div class="card"><div class="row"><b>ERP (se actualiza solo)</b><span class="mut">3 órdenes liberadas y descargadas al MES sin Excel</span></div><div class="grid2" style="margin-top:8px"><div><span class="mut">Producto terminado ingresado</span><br><b style="font-size:22px">'+ERP.pt+' u</b></div><div><span class="mut">Materia prima consumida</span><br><b style="font-size:22px">'+ERP.mp.toFixed(1)+" kg</b></div></div></div><h2>Máquinas</h2>";
+MQ.forEach(function(q){var p=Math.min(100,(q.g+q.b)/q.plan*100);h+='<div class="card"><div class="row"><b>'+q.m+" · "+q.op+'</b><span class="tag '+stc(q)+'">'+q.st+'</span></div><div class="mut">'+q.pz+" · "+q.g+" de "+q.plan+" piezas · OEE "+oee(q)+'</div><div class="bar"><i style="width:'+p+'%"></i></div></div>'});
+h+="<h2>Eventos recibidos</h2>";
+if(!LOG.length)h+='<div class="card mut">Entra al módulo 2, inicia una orden y registra piezas: verás aquí cómo llegan al MES y al ERP.</div>';
+LOG.forEach(function(l){h+='<div class="card mut"><b style="color:var(--ink)">'+l.t+" · "+l.m+"</b> — "+l.x+"</div>"});
+return h+"</main>"}
+function termV(){var q=MQ[TM],i=TM,p=Math.min(100,(q.g+q.b)/q.plan*100);
+var h='<main><h2 style="margin-top:4px">Terminal de planta</h2><div class="acts" style="margin:0 0 12px">'+MQ.map(function(x,k){return '<button class="btn '+(k===TM?"":"alt")+'" onclick="tm('+k+')">'+x.m+"</button>"}).join("")+'</div>';
+h+='<div class="card"><div class="row"><b style="font:700 22px Barlow Condensed,sans-serif">'+q.op+' · tarjeta de ruta digital</b><span class="tag '+stc(q)+'">'+q.st+'</span></div><div style="margin-top:8px">'+q.pz+'</div><div class="mut">Ruta: '+q.ruta+'</div><div class="mut">Meta: '+q.plan+" piezas · Buenas: "+q.g+" · Defectos: "+q.b+'</div><div class="bar"><i style="width:'+p+'%"></i></div>';
+h+='<div class="acts"><button class="btn big" onclick="go('+i+')">Iniciar orden</button><button class="btn big" onclick="reg('+i+',10,0)">+10 buenas</button><button class="btn big" style="background:var(--bad)" onclick="reg('+i+',0,1)">+1 defecto</button><button class="btn big alt" onclick="stop('+i+')">'+(q.st==="Parada no programada"?"Reanudar":"Registrar parada")+'</button><button class="btn big alt" onclick="fin('+i+')">Finalizar</button></div></div>';
+h+='<div class="card mut">Sin papel: el operario ya no anota a mano. Los tiempos, defectos y paradas viajan al MES y al ERP, y se ven en el módulo 1. Los datos sirven para apoyar al operario, no para vigilarlo.</div></main>';return h}
+function vsmV(){var f=VS,va=0,w=0,mx=0;ST.forEach(function(s){va+=s[1];w+=s[f?3:2];mx=Math.max(mx,s[1]+s[2])});var tot=va+w;
+var h='<main><h2 style="margin-top:4px">Mapa de la cadena de valor (VSM)</h2><div class="acts" style="margin:0 0 12px"><button class="btn '+(f?"alt":"")+'" onclick="vs(0)">Estado actual</button><button class="btn '+(f?"":"alt")+'" onclick="vs(1)">Estado futuro</button></div>';
+h+='<div class="kpis"><div class="kpi"><b>'+tot+' h</b><span>Lead time</span></div><div class="kpi"><b>'+Math.round(va/tot*100)+'%</b><span>Tiempo de valor agregado</span></div><div class="kpi"><b>'+(f?"-"+Math.round((1-tot/53)*100)+"%":"53 h")+"</b><span>"+(f?"Reducción vs. actual":"Línea base")+"</span></div></div>";
+ST.forEach(function(s){var wt=s[f?3:2];h+='<div class="card"><div class="row"><b>'+s[0]+'</b><span class="mut">valor agregado '+s[1]+" h · espera "+wt+' h</span></div><div style="display:flex;height:14px;margin-top:8px;width:'+((s[1]+wt)/mx*100)+'%"><i style="flex:'+s[1]+';background:var(--teal)"></i><i style="flex:'+wt+';background:var(--amber)"></i></div></div>'});
+h+='<div class="mut" style="margin:4px 0 12px">Verde: trabajo que agrega valor. Ámbar: espera. Cifras de ejemplo para la simulación.</div>';
+if(f)h+='<div class="card"><b>Qué cambia en el estado futuro</b><div class="mut" style="margin-top:6px">• MES conectado al ERP: la programación deja de pasar por Excel.<br>• Terminales digitales: sin tarjetas de ruta ni reportes por turno.<br>• Proveedores integrados: la materia prima llega sin quiebres.<br>• Kanban digital entre procesos: se reducen los inventarios en espera.</div></div>';
+return h+"</main>"}
+function render(){var b=MOD==="mes"?mesV():MOD==="term"?termV():MOD==="vsm"?vsmV():provV();
+$(mods()+b+(S.toast?'<div class="toast" role="status">'+S.toast+"</div>":""))}
+render();
+
+</script>
+</body>
+</html>
